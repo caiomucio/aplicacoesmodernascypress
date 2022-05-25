@@ -25,4 +25,25 @@ describe('Basic elements', () => {
         cy.get('[href="#"]').click() 
         cy.get('#resultado').should('have.text', 'Voltou!')
     })
+
+    it.only('Textos', () => {
+        cy.get('#formNome').type('Caio')
+        cy.get('#formNome').should('have.value','Caio')
+        //para verificar o texto digitado devemos utilizar o atributo value 
+
+        cy.get('#elementosForm\\:sugestoes').type('sugestões')
+        // foi colocado uma segunda \ porque caso tivesse apenas uma, o cy iria entender que existiria apenas o :, ou seja, sempre que tiver \: no elemento, devemos colocar \\:
+        cy.get('#tabelaUsuarios > :nth-child(2) > :nth-child(1) > :nth-child(6) > input').type('Caio').should('have.value','Caio')
+
+        cy.get('#formSobrenome').type('Caio Mucioo{backspace}')
+        //{backspace} exclue o último caractere inserido
+
+        cy.get('#formSobrenome')
+        .clear()
+        .type('Furtado {selectall}Mucio Furtado',{delay:100}).should('have.value','Mucio Furtado')
+        //.clear() esta limpando o campo digitado completamente
+        //{selectall} limpa tudo que foi digitado antes dele 
+        // {delay} esta fazendo a execução demorar mais 100ms para podermos ver o que está sendo feito. 
+
+    })
 })
