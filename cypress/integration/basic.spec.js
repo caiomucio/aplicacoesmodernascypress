@@ -1,7 +1,7 @@
 ///<reference types="cypress"/>
 
 describe('Cypress básico', () => {
-    it('Deve visitar a página e verificar o título ', () => {
+    it.only('Deve visitar a página e verificar o título ', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
         
         cy.title().should('be.equal', 'Campo de Treinamento')
@@ -10,6 +10,11 @@ describe('Cypress básico', () => {
         cy.title()
             .should('be.equal', 'Campo de Treinamento')
             .and('contain', 'Campo de Treinamento')
+
+        cy.title().then(title =>{
+            console.log(title)
+
+        })
     })
     it('Deve encontrar e interagir com o elemento', () => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
