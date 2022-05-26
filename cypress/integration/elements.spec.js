@@ -26,7 +26,7 @@ describe('Basic elements', () => {
         cy.get('#resultado').should('have.text', 'Voltou!')
     })
 
-    it.only('Textos', () => {
+    it('Textos', () => {
         cy.get('#formNome').type('Caio')
         cy.get('#formNome').should('have.value','Caio')
         //para verificar o texto digitado devemos utilizar o atributo value 
@@ -44,6 +44,37 @@ describe('Basic elements', () => {
         //.clear() esta limpando o campo digitado completamente
         //{selectall} limpa tudo que foi digitado antes dele 
         // {delay} esta fazendo a execução demorar mais 100ms para podermos ver o que está sendo feito. 
+    })
 
+    it('Radio button', () =>{
+        cy.get("[name='formSexo']").should('have.length', 2)
+        // verificando que existe duas opçoes para o usuário marcar
+        cy.get('#formSexoFem')
+            .click()
+            .should('be.checked')
+        cy.get('#formSexoMasc').should('not.be.checked')
+    })
+    it('Check box', () => {
+        cy.get('[name="formComidaFavorita"]')
+        .should('have.length', 4)
+        .click({multiple:true})
+        // {multiple:true} esta fazendo clicar nos 4 elemntos pois o click() so pode clicar em apenas em um elemento 
+        .should('be.checked')
+        // verificando que os 4 foram marcados
+        cy.get('#formComidaCarne').click().should('not.be.checked')
+        //pedindo para clicar novamente ele vai desmarcar a opção 
+    })
+    it.only('Combo box', () =>  {
+        cy.get('[data-test=dataEscolaridade]') 
+        //pegando o combo inteiro
+        .select('2grauincomp')
+        //selecionando o desejado pelo value.Poderia colcoar tambem o texto visível
+        .should('have.value', '2grauincomp')    
+    })
+    it.only('Combo Múltiplo', () => {
+        cy.get('[data-testid=dataEsportes]')
+        .select(['natacao',"Corrida"])
+        // deve ser inserido os value dos elementos desejados
+        
     })
 })
